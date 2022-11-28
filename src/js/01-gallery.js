@@ -7,15 +7,15 @@ const instance = basicLightbox.create(`
       <img class="gallery_image"
       src='https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619_1280.jpg',
       alt="flower"/>
-    </div>`)
+    </div>`);
 
 const galleryContainer = document.querySelector("div.gallery");
-const galleryGreate = makeCreateGallery(galleryItems);
-
-galleryContainer.insertAdjacentHTML('beforeend',galleryGreate);
+const createGallery = makeCreateGallery(galleryItems);
 
 
-function makeCreateGallery(galleryItems ) {
+
+
+function makeCreateGallery(galleryItems) {
   return galleryItems.map(({ preview, description, original }) => {
     return 
      `<div class="gallery__item">
@@ -28,8 +28,10 @@ function makeCreateGallery(galleryItems ) {
   </a>
 </div>`;
   })
-  .join("");
+  .join(" ");
 }
+galleryContainer.insertAdjacentHTML('beforeend', createGallery);
+// console.log(galleryItems);
 
 
 
