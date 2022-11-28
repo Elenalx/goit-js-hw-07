@@ -9,14 +9,11 @@ const instance = basicLightbox.create(`
       alt="flower"/>
     </div>`);
 
-const galleryContainer = document.querySelector("div.gallery");
-const createGallery = makeCreateGallery(galleryItems);
+const galleryContainer = document.querySelector(".gallery");
 
-
-
-
-function makeCreateGallery(galleryItems) {
-  return galleryItems.map(({ preview, description, original }) => {
+function makeCreateGallery(items) {
+  return items
+    .map(({ preview, description, original }) => {
     return 
      `<div class="gallery__item">
       <a class="gallery__link" href="${original}">
@@ -28,15 +25,11 @@ function makeCreateGallery(galleryItems) {
   </a>
 </div>`;
   })
-  .join(" ");
+  .join("");
 }
+
+const createGallery = makeCreateGallery(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', createGallery);
-// console.log(galleryItems);
 
 
 
-
-
-
-// instance.show();
-// console.log(galleryItems);
