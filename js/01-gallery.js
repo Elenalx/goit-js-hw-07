@@ -14,10 +14,9 @@ const galleryContainer = document.querySelector(".gallery");
 function makeCreateGallery(items) {
   return items
     .map(({ preview, description, original }) => {
-    return 
-     `<div class="gallery__item">
+    return `<div class="gallery__item">
       <a class="gallery__link" href="${original}">
-        <img class="gallery__image"
+      <img class="gallery__image"
           src="${preview}"
           data-source="${original}"
           alt="${description}"
@@ -31,5 +30,9 @@ function makeCreateGallery(items) {
 const createGallery = makeCreateGallery(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', createGallery);
 
+galleryContainer.addEventListener('click', onGalleryContainerClick)
 
 
+function onGalleryContainerClick(evt) {
+  
+}
