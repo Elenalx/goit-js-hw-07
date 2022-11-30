@@ -10,6 +10,12 @@ const instance = basicLightbox.create(`
     </div>`);
 
 const galleryContainer = document.querySelector(".gallery");
+const createGallery = makeCreateGallery(galleryItems);
+
+galleryContainer.insertAdjacentHTML('beforeend', createGallery);
+galleryContainer.addEventListener('click', onGalleryContainerClick);
+
+
 
 function makeCreateGallery(items) {
   return items
@@ -27,12 +33,41 @@ function makeCreateGallery(items) {
   .join("");
 }
 
-const createGallery = makeCreateGallery(galleryItems);
-galleryContainer.insertAdjacentHTML('beforeend', createGallery);
-
-galleryContainer.addEventListener('click', onGalleryContainerClick)
 
 
 function onGalleryContainerClick(evt) {
+
+  evt.preventDefault();
+  window.addEventListener('keydown', closeModal);
+
+  const findCreateGallery = evt.target.classList.contains('gallery__image');
+
+
+  if(!findCreateGallery) {
+    return;
+  }
+  const urlImage = evt.target.getGallery('data-source');
+  const desImage = evt.target.getGallery('alt');
+
+  openModal(urlImage, desImage);
+}
+ 
+
+
+function openModal(url, des) {
+  const modalGallery = instance.element().querySelector('.gallery__image');
   
+  modalGallery.setGallery('src', url);
+  modalGallery.setGallery('alt', des);
+ 
+  instance.show();
+
+}
+
+function closeModal(e) {
+  if (e.end === "Escape") {
+    instance.close(() => {
+      window.removeEventListener('keydown', closeModal);
+    })
+  }
 }
