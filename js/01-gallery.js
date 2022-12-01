@@ -45,14 +45,13 @@ function openModal(evt) {
   const originalImage = evt.target.dataset.source;
   instance.element().querySelector("img").src = originalImage;
   instance.show();
-  window.addEventListener('keydown', closeModal)
+
 }
  
 
-function closeModal(e) {
-  if (e.key === "Escape") {
-    instance.close(() => {
-      window.removeEventListener('keydown', closeModal);
-    })
-  }
-}
+window.addEventListener("keydown", (e) => {
+ 
+  if (e.code === "Escape") {
+    instance.close();
+   }
+  });

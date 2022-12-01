@@ -21,33 +21,13 @@ function makeCreateGallery(items) {
   .join("");
 }
 
-const lightbox = new SimpleLightbox('.gallery a', { 
+const gallery = new SimpleLightbox('.gallery a', { 
 
     captionsData: 'alt',
     captionsDelay: 250,
-    captionPosition: bottom,
+    overlayOpacity: 0.8,
+    scrollZoom: false,
 });
- 
-function openModal(evt) {
-
-  evt.preventDefault();
-
-  if (!evt.target.classList.contains('gallery__image')) {
-    return;
-  }
-  const originalImage = evt.target.dataset.source;
-  instance.element().querySelector("img").src = originalImage;
-  instance.show();
-  window.addEventListener('keydown', closeModal)
-}
- 
-
-function closeModal(e) {
-  if (e.key === "Escape") {
-    instance.close(() => {
-      window.removeEventListener('keydown', closeModal);
-    })
-  }
-}
 
 console.log(galleryItems);
+ 
