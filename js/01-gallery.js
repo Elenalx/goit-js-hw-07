@@ -13,7 +13,7 @@ const galleryContainer = document.querySelector(".gallery");
 const createGallery = makeCreateGallery(galleryItems);
 
 galleryContainer.insertAdjacentHTML('beforeend', createGallery);
-galleryContainer.addEventListener('click', onGalleryContainerClick);
+galleryContainer.addEventListener('click', openModal);
 
 
 
@@ -35,37 +35,22 @@ function makeCreateGallery(items) {
 
 
 
-function onGalleryContainerClick(evt) {
+function openModal(evt) {
 
   evt.preventDefault();
-  window.addEventListener('keydown', closeModal);
 
-  const findCreateGallery = evt.target.classList.contains('gallery__image');
-
-
-  if(!findCreateGallery) {
+  if (!evt.target.classList.contains('gallery__image')) {
     return;
   }
-  const urlImage = evt.target.getGallery('data-source');
-  const desImage = evt.target.getGallery('alt');
-
-  openModal(urlImage, desImage);
-}
- 
-
-
-function openModal(url, des) {
-  const modalGallery = instance.element().querySelector('.gallery__image');
-  
-  modalGallery.setGallery('src', url);
-  modalGallery.setGallery('alt', des);
- 
+  const originalImage = evt.target.dataset.source;
+  instance.element().querySelector("img").src = originalImage;
   instance.show();
-
+  window.addEventListener('keydown', closeModal)
 }
+ 
 
 function closeModal(e) {
-  if (e.end === "Escape") {
+  if (e.key === "Escape") {
     instance.close(() => {
       window.removeEventListener('keydown', closeModal);
     })
